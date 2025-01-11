@@ -15,9 +15,6 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -25,9 +22,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -66,6 +60,10 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
+        $request->validate([
+            'avatar' => ['nullable', 'image', 'max:2048', 'mimes:jpeg, jpg, png, gif, webp'],
+        ]);
+
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
                 Storage::delete($user->avatar);
@@ -77,19 +75,22 @@ class ProfileController extends Controller
             $user->save();
         }
 
-        return back()->with('avatar', 'You have successfully updated your Profile Image!');
+        return back()->with('updated', 'Profile image is updated');
     }
 
     public function allPosts(Request $request)
     {
 
         $user = $request->user();
+        $followersCount = $user->followers()->count();
+        $followingCount = $user->following()->count();
+        $postsCount = $user->posts()->count();
         $allUserPosts = Post::where('user_id', '=', $user->id)->get();
         $sorted = $allUserPosts->sortBy('created_at', SORT_REGULAR, true);
 
         return view(
             'profile.posts',
-            ["user" => $user, "data" => $sorted]
+            ["user" => $user, "data" => $sorted, 'followersCount' => $followersCount, 'followingCount' => $followingCount, 'postsCount' => $postsCount,]
         );
     }
 

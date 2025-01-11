@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\Repost;
@@ -10,12 +11,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Number;
 
 class PostController extends Controller
 {
 
-    function like(Request $request)
+    public function like(Request $request)
     {
         $user = request()->user();
         $userId = $user->id;
@@ -41,9 +43,9 @@ class PostController extends Controller
         $like->save();
 
         return back()->withInput();
-
     }
-    function showAll(Request $request)
+
+    public function showAll(Request $request)
     {
         $allPosts = Post::all();
         $sorted = $allPosts->sortBy('created_at', SORT_REGULAR, true);
@@ -79,8 +81,8 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => ['required', 'string', 'max:64', 'min:4'],
-            'body' => ['required', 'string', 'max:1100', 'min:4'],
-            'image' => ['nullable', 'image', 'max:2048', 'mimes:jpeg, jpg, png, gif, webp'],
+            'body' => ['required', 'string', 'max:1100', 'min:8'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:jpeg, jpg, png, gif'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -93,22 +95,21 @@ class PostController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect('/dashboard')->with('updated', 'Post updated successfully!');
-
+        return redirect('/dashboard')->with('updated', 'Post updated successfully');
     }
 
-    function create()
+    public function create()
     {
 
         return view('post.create');
     }
 
-    function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'title' => ['required', 'string', 'max:64', 'min:4'],
-            'body' => ['required', 'string', 'max:1100', 'min:4'],
-            'image' => ['nullable', 'image', 'max:2048', 'mimes:jpeg, jpg, png, gif, webp'],
+            'body' => ['required', 'string', 'max:1100', 'min:8'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:jpeg, jpg, png, gif'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -127,10 +128,11 @@ class PostController extends Controller
         $post->image = $imagePath;
         $post->reposts = 0;
         $post->likes = 0;
+        $post->comments = 0;
         $post->user_id = $user->id;
         $post->save();
 
-        return redirect('/dashboard')->with('success', 'Post is created!');
+        return redirect('/dashboard')->with('success', 'Post is created');
     }
 
     public function destroy(Post $post): RedirectResponse
@@ -139,14 +141,14 @@ class PostController extends Controller
             $post->delete();
         }
 
-        return redirect()->back()->with('delete', 'Post is deleted.');
+        return redirect()->back()->with('delete', 'Post is deleted');
     }
 
     // public function repost(Post $post)
     // {
     //     $user = auth()->user();
     //     if ($user->hasReposted($post)) {
-    //         return back()->with('error', 'You have reported this post');
+    //         return back()->with('error', 'You have reposted this post');
     //     }
 
 
@@ -155,6 +157,6 @@ class PostController extends Controller
     //     $repost->post_id = $post->id;
     //     $repost->save();
 
-    //     return back()->with('reposted', 'Post is reposted!');
+    //     return back()->with('reposted', 'Post is reposted');
     // }
 }

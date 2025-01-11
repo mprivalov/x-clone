@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class FollowersController extends Controller
 {
-    function follower()
+    public function follower()
     {
         $user = Auth::user();
         $userToFollowId = request('id');
@@ -36,19 +36,24 @@ class FollowersController extends Controller
     public function showFollowLists(Request $request)
     {
         $user = Auth::user();
+        $userId = request('id');
+        $user = User::find($userId);
+        $followersCount = $user->followers()->count();
+        $followingCount = $user->following()->count();
+        $postsCount = $user->posts()->count();
 
         $followers = DB::table('followers')
             ->join('users', 'followers.follower_id', '=', 'users.id')
             ->where('followers.following_id', $user->id)
-            ->select('users.name', 'users.id', 'users.avatar')
+            ->select('users.name', 'users.id', 'users.avatar', 'users.email')
             ->get();
 
         $following = DB::table('followers')
             ->join('users', 'followers.following_id', '=', 'users.id')
             ->where('followers.follower_id', $user->id)
-            ->select('users.name', 'users.id', 'users.avatar')
+            ->select('users.name', 'users.id', 'users.avatar', 'users.email')
             ->get();
 
-        return view('profile.follows', compact('user', 'followers', 'following'));
+        return view('profile.follows', ["user" => $user, 'followersCount' => $followersCount, 'followingCount' => $followingCount, 'postsCount' => $postsCount,], compact('user', 'followers', 'following'));
     }
 }

@@ -90,7 +90,7 @@ class User extends Authenticatable
 
     public function hasReposted(Post $post)
     {
-        
+
         return $this->reposts()->where('post_id', $post->id)->exists();
     }
 }

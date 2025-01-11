@@ -57,8 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('post.update');
 
-    Route::get('create-post', [PostController::class, 'create'])->name('post.create');
-    Route::post('create-post', [PostController::class, 'store'])->name('post.store');
+    Route::get('/create-post', [PostController::class, 'create'])->name('post.create');
+    Route::post('/create-post', [PostController::class, 'store'])->name('post.store');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

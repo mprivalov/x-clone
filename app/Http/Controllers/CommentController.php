@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    function store(Request $formData)
+    public function store(Request $formData)
     {
         $comment = new Comment();
         $comment->body = $formData->comment;
@@ -24,7 +24,7 @@ class CommentController extends Controller
         return back()->withInput();
     }
 
-    function like(Request $request)
+    public function like(Request $request)
     {
         $user = $request->user();
         $userId = $user->id;
