@@ -36,7 +36,7 @@
         </main>
 
         <!-- Page Footer -->
-        @include('layouts.footer')
+            @include('layouts.footer')
     </div>
 </body>
 </html>

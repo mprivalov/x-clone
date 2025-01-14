@@ -128,7 +128,7 @@ class PostController extends Controller
         $post->image = $imagePath;
         $post->reposts = 0;
         $post->likes = 0;
-        $post->comments = 0;
+        // $post->comments = 0;
         $post->user_id = $user->id;
         $post->save();
 

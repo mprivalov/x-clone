@@ -57,7 +57,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" class="dropdown-link">
                             <svg class="w-3 h-3 mr-1 fill-gray-700" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 448 512">
                                 <path
@@ -65,7 +65,7 @@
                             </svg>
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('profile.my-posts')" :active="request()->routeIs('profile.my-posts')">
+                        <x-dropdown-link :href="route('profile.my-posts')" :active="request()->routeIs('profile.my-posts')" class="dropdown-link">
                             <svg class="w-3 h-3 mr-1 fill-gray-700" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 512 512">
                                 <path
@@ -81,7 +81,8 @@
 
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                this.closest('form').submit();"
+                                class="dropdown-link">
                                 <svg class="w-3 h-3 mr-1 fill-gray-700" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512">
                                     <path
@@ -144,14 +145,14 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" class="dropdown-link">
                     <svg class="w-3 h-3 mr-1 fill-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                         <path
                             d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z" />
                     </svg>
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('profile.my-posts')" :active="request()->routeIs('profile.my-posts')">
+                <x-responsive-nav-link :href="route('profile.my-posts')" :active="request()->routeIs('profile.my-posts')" class="dropdown-link">
                     <svg class="w-3 h-3 mr-1 fill-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path
                             d="M168 80c-13.3 0-24 10.7-24 24l0 304c0 8.4-1.4 16.5-4.1 24L440 432c13.3 0 24-10.7 24-24l0-304c0-13.3-10.7-24-24-24L168 80zM72 480c-39.8 0-72-32.2-72-72L0 112C0 98.7 10.7 88 24 88s24 10.7 24 24l0 296c0 13.3 10.7 24 24 24s24-10.7 24-24l0-304c0-39.8 32.2-72 72-72l272 0c39.8 0 72 32.2 72 72l0 304c0 39.8-32.2 72-72 72L72 480zM176 136c0-13.3 10.7-24 24-24l96 0c13.3 0 24 10.7 24 24l0 80c0 13.3-10.7 24-24 24l-96 0c-13.3 0-24-10.7-24-24l0-80zm200-24l32 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-32 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80l32 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-32 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zM200 272l208 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-208 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80l208 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-208 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
@@ -164,7 +165,8 @@
                     @csrf
                     <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                        this.closest('form').submit();"
+                        class="dropdown-link">
                         <svg class="w-3 h-3 mr-1 fill-gray-700 indigo-700" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
                             <path

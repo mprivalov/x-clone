@@ -127,8 +127,8 @@
                             <p>{{ $post->body }}</p>
                             @if ($post->image)
                                 <div>
-                                    <img id='imageZoom' src="{{ asset('storage/' . $post->image) }}" alt="Post image"
-                                        class="max-w-72 max-h-72 rounded-md">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post image"
+                                        class="imageZoom max-w-72 max-h-72 rounded-md">
                                 </div>
                             @endif
                             <div class="flex flex-row justify-between py-1 sm:py-2">

@@ -12,7 +12,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-end">
         <form action="{{ route('dashboard.filter') }}" method="GET" class="flex flex-row justify-between gap-3">
-            <select name="filter" id="filter" class="p-1 pl-2 pr-8 border-none rounded-md">
+            <select name="filter" id="filter" class="p-1 pl-2 pr-8 border-none rounded-md bg-transparent">
                 <option value="recent">Most Recent</option>
                 <option value="liked">Most Liked</option>
             </select>
@@ -80,7 +80,7 @@
 
                                         <x-slot name="content">
                                             <x-dropdown-link href="/posts/{{ $post->id }}/edit" :active="request()->routeIs('post.edit')"
-                                                class="flex">
+                                                class="dropdown-link">
                                                 <svg class="w-3 h-3 mr-1 fill-gray-700"
                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                     <path
@@ -90,7 +90,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="flex items-center w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:text-indigo-700 hover:bg-gray-50 focus:outline-none focus:text-indigo-800 focus:bg-gray-100 transition duration-150 ease-in-out">
+                                                    class="dropdown-link flex items-center w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:text-indigo-700 hover:bg-gray-50 focus:outline-none focus:text-indigo-800 focus:bg-gray-100 transition duration-300 ease-in-out">
                                                     <svg class="w-3 h-3 mr-1 fill-gray-700"
                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                                         <path
@@ -105,8 +105,8 @@
                             <p>{{ $post->body }}</p>
                             @if ($post->image)
                                 <div>
-                                    <img id='imageZoom' src="{{ asset('storage/' . $post->image) }}" alt="Post image"
-                                        class="max-w-72 max-h-72 rounded-md">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post image"
+                                        class="imageZoom max-w-72 max-h-72 rounded-md">
                                 </div>
                             @endif
                             <div class="flex flex-row justify-between py-1 sm:py-2">
